@@ -30,7 +30,7 @@ function worldTour(input) {
             case 'Switch':
                 let searchedString = currentCommand[1];
                 let replacement = currentCommand[2];
-                startingString = startingString.split(searchedString).join(replacement)
+                startingString = startingString.split(searchedString).join(replacement) 
                 break;
         }
         console.log(startingString);
