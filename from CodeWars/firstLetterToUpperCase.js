@@ -1,9 +1,9 @@
 function firstToUpper(string){
 let splited = string.split(" ");
-let buff = []
+let buff = [];
 for(let element of splited){
     element = element.substring(0,1).toUpperCase()+element.substring(1);
-    buff.push(element)
+    buff.push(element);
 }
-console.log(buff.join(" "));
+return buff.join(" ");
 }firstToUpper("How can mirrors be real if our eyes aren't real")

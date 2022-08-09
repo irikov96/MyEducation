@@ -1,6 +1,6 @@
 function fancyBarcodes(input) {
     let number = Number(input.shift())
-    let regEx = /(@#{1,})([A-Z][A-Za-z0-9]{4,}[A-Z])(@#{1,})/
+    let regEx = /[|]([A-Z]{4,})[|]:#([A-Z]{1,}[a-z]+\s[A-Za-z]{1,})#/
     
     for (let i = 0; i < number; i++) {
         let text = input[i]
