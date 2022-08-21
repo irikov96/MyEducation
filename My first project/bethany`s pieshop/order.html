@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="site.css" type = "text/css" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Bethany`s Pie Shop</title>
+    <style>
+        @media only screen and (min-width: 768px){
+            article{
+                 width: 350 px;
+            }
+        }
+        .input-group{
+            margin-bottom: 20px;
+        }
+        
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            padding: 10px;
+            border: solid 1px #999;
+            border-radius: 2px;
+            width: 100%;
+        }
+        label{
+            font-weight: 600;
+        }
+        input[type="reset"]{
+            background: transparent;
+            border: 0;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        input[type="submit"]{
+            border: solid 1px #999;
+            border-radius: 3px;
+            padding: 10px;
+        }
+    </style>
+  </head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pies.html">Pies</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>  
+    <main>
+        <aside><img src="images/logo.png" alt="Bethany`s pieshop"></aside>
+        <article>
+            <h1>Order</h1>
+
+            <div class="pie">
+                <img src="" />
+                <div class="columns">
+                  <div class="title"></div>
+                  <div class="price"></div>
+                </div>
+                <p class="desc"></p>
+            </div>
+            <form action="http://localhost:8800/api/post", method="POST"> <!--Example server to send the info-->
+                <input type="hidden" id = "pie-order" name="pie-order">
+                <input type="hidden" id = "location" name="location">
+                <div class="input-group">
+                    <div><label for="first-name">First name</label></div>
+                    <div><input type="text" name = "first-name" id  = "first-name"/></div>
+                </div>
+                <div class="input-group">
+                    <div><label for="last-name">Last name</label></div>
+                    <div><input type="text" name = "last-name" id  = "last-name"/></div>
+                </div>
+                <div class="input-group">
+                    <div><label for="adress">Adress</label></div>
+                    <div><input type="text" name = "adress" id  = "adress"/></div>
+                </div>
+                <div class="input-group">
+                    <div><label for="city">City</label></div>
+                    <div>
+                    <select name="city" id="city">
+                        <option value="" selected>[ Select one ]</option>
+                        <option value="Sofia">Sofia</option>
+                        <option value="Plovdiv">Plovdiv</option>
+                        <option value="Varna">Varna</option>
+                        <option value="Burgas">Burgas</option>
+                        <option value="Stara Zagora">Stara Zagora</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div><label for="postal-code">Post code</label></div>
+                    <div><input type="text" name="postal-code" id = "postal-code"/></div>
+                </div>
+                <div class="input-group">
+                    <div><label for="comments">Comments</label></div>
+                    <div>
+                        <textarea 
+                        name="comments"
+                        id="comments"
+                        cols="30" 
+                        rows="10">
+                        </textarea>
+                    </div>
+                </div>
+                <input type="reset" value="Reset"/>
+                <input type="submit" value="Order"/>
+
+            </form>
+        </article>
+    </main> 
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pies.html">Pies</a></li>
+                <li><a href="contact.html">Contacts</a></li>
+            </ul>
+        </nav>
+    </footer> 
+</body>
+<script>
+    // handle the DOM content loaded event to make sure the script is running 
+    window.addEventListener("DOMContentLoaded", function(e){
+
+
+        // I AM BUGGIN SOMETHING
+
+        // // creating geolocation from the hidden input in the forms
+        // let locationBox = document.querySelector("#location");
+
+        // let location = {
+        //     latitude: "unknown",
+        //     longtitude: "unknown"
+        // };
+        
+        // // get current position and asko for it
+
+        // window.navigator.geolocation.getCurrentPosition(
+        //     function(position){
+        //     location = {
+        //         latitude: position.coords.latitude,
+        //         longtitude: position.coords.longitude
+        //     };
+
+        //     locationBox.value = JSON.stringify(location);
+
+        //     },
+        //     function(error){
+        //         locationBox.value = JSON.stringify(location);
+        //     });
+
+        // get the order information from the local storage
+        const order = localStorage.getItem("order");
+        //check if i work with actual data
+        if(order){
+        //get the data
+        const pieOrder = JSON.parse(order);
+
+        //get the hidden element from the html and use it to send the info
+        const orderInput = document.querySelector("#pie-order");
+        orderInput.value = order;
+        // u can see whats going on if you start local server and change the URL above!
+
+        //select the actuall properties
+        const pie = document.querySelector(".pie");
+
+        const title = document.querySelector(".title");
+        const price = document.querySelector(".price");
+        const desc = document.querySelector(".desc"); 
+
+        //use inner text and set the values on the page
+        title.innerText = pieOrder.title;
+        price.innerText = pieOrder.price;
+        desc.innerText = pieOrder.desc;
+
+        // set up the image
+        const img = pie.querySelector("img");
+        img.setAttribute("src", `images/${pieOrder.id}.png`);
+        //add the title text under the image
+        img.setAttribute("alt", pieOrder.title);
+        }
+    });
+</script>
+</html>

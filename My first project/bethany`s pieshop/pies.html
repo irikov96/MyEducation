@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="site.css" type = "text/css" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>Pies | Bethany`s Pie Shop</title>
 </head>
 <body>
@@ -53,4 +54,32 @@
         </nav>
     </footer> 
 </body>
+<script>
+    //setting up the events
+    window.addEventListener("DOMContentLoaded", function(e){
+        //give a logic to the buttons
+        const orderButtons = document.querySelectorAll("button[data-order]");
+        orderButtons.forEach(function(button){
+            // add em an event listener with click function
+            button.addEventListener("click", function(e){
+                const button = e.currentTarget;
+                // get the info from the parentNode
+                const container = button.parentNode;
+                // setting up the order and store it to locale storage of the browser
+                const order = {
+                    id: button.getAttribute("data-order"),
+                    title: container.querySelector(".title").innerText,
+                    price: container.querySelector(".price").innerText,
+                    desc: container.querySelector(".desc").innerText
+                };
+                // Stringify it and send it to the locale storage
+                localStorage.setItem("order", JSON.stringify(order));
+                // change the url after clicking on the order
+                const url = window.location.href.replace("pies.html", "order.html");
+                window.location.href=url;
+
+            })
+        })
+    });
+</script>
 </html>
